@@ -12,6 +12,6 @@ Base = declarative_base()
 
 
 def create_tables():
-    # Necessary imports
+    # Necessary imports for db to register
     from models.Question import Question
     Base.metadata.create_all(engine)
