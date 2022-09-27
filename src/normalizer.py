@@ -17,7 +17,7 @@ def __tokenize_word(word: str, morph: MorphAnalyzer) -> str:
     return morph.parse(word)[0].normal_form
 
 
-def __normalize_str(s: str, morph: MorphAnalyzer) -> str:
+def normalize_str(s: str, morph: MorphAnalyzer) -> str:
     splitted: list[str] = [x.lower() for x in __split_str(s) if x and __has_alpha(x)]
     stop_words: list[str] = nltk.corpus.stopwords.words('russian')
     morphed: list[str] = [__tokenize_word(x, morph) for x in splitted if x not in stop_words]
@@ -26,6 +26,6 @@ def __normalize_str(s: str, morph: MorphAnalyzer) -> str:
 
 def transform_questions(morph: MorphAnalyzer, session: Session) -> None:
     for question in session.query(Question).all():
-        transformed_question = __normalize_str(question.raw, morph)
+        transformed_question = normalize_str(question.raw, morph)
         question.transformed = transformed_question
         session.add(question)
