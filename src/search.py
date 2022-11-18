@@ -74,7 +74,7 @@ class Searcher:
         return list(
             map(
                 lambda x: RankedResult(x[1], df["raw"][x[0]]),
-                enum_sort_cos_sim
+                enum_sort_cos_sim[1:]
             )
         )
 

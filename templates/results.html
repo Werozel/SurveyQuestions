@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .content-section {
+          background: #ffffff;
+          padding-left: 32px;
+          padding-right: 32px;
+          padding-top: 18px;
+          border: 1px solid #dddddd;
+          border-radius: 10px;
+          margin-bottom: 20px;
+        }
+
+        .result-section {
+            background: #ffffff;
+            padding: 12px 18px 18px;
+            border: 1px solid #dddddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <title>Search system</title>
+</head>
+<body style="background-color: ivory" class="d-flex flex-row justify-content-center">
+    <div class="d-flex flex-column" style="width: 1200px">
+        <a href="{{ url_for('index_route') }}">
+            <button class="btn btn-outline-info float-left mt-4 ml-1">Назад</button>
+        </a>
+
+        {% if can_be_slow %}
+        <p class="ml-3 mt-4 mb-0">Может работать долго, подождите пару минут</p>
+        {% endif %}
+
+        <div class="content-section d-flex flex-column mt-4">
+            {% if show_requests %}
+                <div class="row d-flex flex-row justify-content-between mb-2">
+                    <p style="margin-right: 32px; align-self: center">{{ REQUEST_1 }}</p>
+                    <a href="{{ url_for(method, request=REQUEST_1) }}"><button class="btn btn-outline-info float-right">Отправить</button></a>
+                </div>
+                <div class="row d-flex flex-row justify-content-between mb-2">
+                    <p style="margin-right: 32px" class="justify-content-start">{{ REQUEST_2 }}</p>
+                    <div class="justify-content-end">
+                        <a href="{{ url_for(method, request=REQUEST_2) }}"><button class="btn btn-outline-info float-right">Отправить</button></a>
+                    </div>
+                </div>
+                <div class="row d-flex flex-row justify-content-between mb-3">
+                    <p style="margin-right: 32px">{{ REQUEST_3 }}</p>
+                    <a href="{{ url_for(method, request=REQUEST_3) }}"><button class="btn btn-outline-info float-right">Отправить</button></a>
+                </div>
+                <legend class="border-bottom mb-3"></legend>
+            {% endif %}
+            <div class="row d-flex flex-row justify-content-between mb-3">
+                <input class="form-control w-75" id="input" name="input" type="text" placeholder="Введите запрос" value="{{ request }}">
+                <button id="send" class="btn btn-outline-info float-right" onclick="sendRequest()">Отправить</button>
+            </div>
+        </div>
+
+        {% if results %}
+            <div class="result-section d-flex flex-column mt-4 justify-content-center">
+                <h5 class="w-100 text-center mb-3">Результаты</h5>
+                {% for result in results %}
+                    <div class="d-flex flex-row">
+                        <p class="text-left flex-shrink-1 mr-2 ml-0 pl-0">{{ loop.index }}.</p>
+                        <p class="flex-grow-1 w-100">{{ result.question }}</p>
+                        <p class="ml-4 text-left flex-shrink-1">{{ result.score }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+<script>
+    const input = document.getElementById("input")
+
+    function sendRequest() {
+        const request = input.value
+        if (request.length === 0) {
+            return
+        }
+        window.location.href = "{{ url_for(method, request='-') }}".slice(0, -1) + request
+    }
+
+    input.addEventListener("keyup", (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault()
+            document.getElementById("send").click()
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .content-section {
+          background: #ffffff;
+          padding-left: 32px;
+          padding-right: 32px;
+          padding-top: 18px;
+          border: 1px solid #dddddd;
+          border-radius: 10px;
+          margin-bottom: 20px;
+        }
+
+        .result-section {
+            background: #ffffff;
+            padding: 12px 18px 18px;
+            border: 1px solid #dddddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <title>Search system</title>
+</head>
+<body style="background-color: ivory" class="d-flex flex-row justify-content-center">
+    <div class="d-flex flex-column" style="width: 1200px">
+        <div class="content-section d-flex flex-column mt-4">
+            <div>
+                <div class="row d-flex flex-row justify-content-between mb-2">
+                    <p style="margin-right: 32px; align-self: center">Tf-Idf</p>
+                    <a href="{{ url_for('search_tfidf_route', request='') }}"><button class="btn btn-outline-info float-right">Открыть</button></a>
+                </div>
+                <!-- TODO: tf-idf + sym -->
+                <div class="row d-flex flex-row justify-content-between mb-2">
+                    <p style="margin-right: 32px">LSA</p>
+                    <a href="{{ url_for('search_lsa_route', request='') }}"><button class="btn btn-outline-info float-right">Открыть</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
