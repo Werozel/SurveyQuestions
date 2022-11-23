@@ -1,0 +1,9 @@
+pymorphy2
+flask
+flask_bootstrap
+sqlalchemy
+nltk
+psycopg2-binary
+pandas
+numpy
+scikit-learn
